@@ -1,0 +1,168 @@
+##########################################################################
+# iHydroSlide3D Project Control File (Version 1.0)
+##########################################################################
+#
+#
+#
+##########################################################################
+# MODEL Run Time Information
+#  y(year);m(month);d(day);h(hour);u(minute);s(second)
+##########################################################################
+StartYear        =  2012 # in the format of yyyy
+StartMonth       =    06 # in the format of mm
+StartDay         =    05 # in the format of dd
+StartHour        =    03 # in the format of hh
+StartMinute      =    00 # in the format of uu
+StartSecond      =    00 # in the format of ss
+EndYear        =    2012 # in the format of yyyy
+EndMonth       =      06 # in the format of mm
+EndDay         =      05 # in the format of dd
+EndHour        =      14 # in the format of hh
+EndMinute      =      00 # in the format of uu
+EndSecond      =      00 # in the format of ss
+TimeStep       =    3600 # in seconds
+##########################################################################
+#
+#
+#
+##########################################################################
+# model core: determine which model you are using: 
+# Hydromodel 
+# HydroSlide
+# iHydroSlide3D
+##########################################################################
+ModelCore	=	iHydroSlide3D
+##########################################################################
+#
+#
+#
+##########################################################################
+# Block to determine how to deal with model states
+# ###################^.^         Hydrological Input          ^.^##################
+##########################################################################
+SaveState    = no
+LoadState    = no
+# If you choose to load sate, the state variables will be uploaded from
+# files located on the StatePath specified below.
+# If you choose not to load state, you have to specify the state variables
+# The types of state variables can be uniform or distributed.
+W0Type       =        Uniform  # Soil water in depth (mm)
+W0           =        20
+RType        =        Uniform  # Channel streamflow (m3/s)
+R            =        20
+RSType       =        Uniform  # Unit overland streamflow (m3/s/m)
+RS           =        0.001
+SI0Type      =        Uniform  # Interflow storage depth (mm)
+SI0          =        10
+##########################################################################
+#
+#
+#
+##########################################################################
+# Some paths + prefixes
+##########################################################################
+HydroBasicFormat      =  tif
+HydroBasicPath        =  "./HydroBasics/"
+##########################################################################
+ParamFormat      =  tif
+ParamPath        =  "./Parameters/"
+##########################################################################
+StateFormat      =  tif
+StatePath        =  "./States/"
+##########################################################################
+ICSFormat        =  tif
+ICSPath          =  "./ICS/"
+##########################################################################
+RainFormat       =  tif
+RainPath         =  "./P_PET/rain"
+##########################################################################
+PETFormat        =  tif
+PETPath          =  "./P_PET/pet"
+##########################################################################
+ResultFormat     =  tif
+ResultPath       =  "./Results/"
+##########################################################################
+OBSPath          =  "./OBS/"
+##########################################################################
+#
+#
+#
+##########################################################################
+# Block to specify parameters, types of parameters can be distributed or
+# uniform
+##########################################################################
+RainFactType   =  Uniform     # Multiplier to the precipitation value
+RainFact       =  1.4
+##########################################################################
+KsatType       =  Distributed     # Saturated water conductance
+Ksat           =  0.5
+##########################################################################
+WMType         =  Distributed     # Average soil water capacity
+WM             =  71.96465
+##########################################################################
+BType          =  Uniform     #
+B              =  1 #10 #0.964355
+##########################################################################
+IMType         =  Distributed #
+IM             =  0.06508687
+##########################################################################
+KEType         =  Uniform     #
+KE             =  0.5
+##########################################################################
+coeMType       =  Uniform     #Overland flow speed multiplier
+coeM           =  130 #24.230076
+##########################################################################
+#
+#
+#
+#####################        Landslide model Input          ##################
+##########################################################################
+LandslideBasicFormat      =  tif
+LandslideBasicPath        =  "./LandslideBasics/"
+UseMaxLocalNcores = no
+UserDefinedNcores = 4
+Landslide_density = 0.5
+Divide_tile_number = 100
+min_ae = 50
+max_ae = 200
+min_be = 50
+max_be = 150
+LandslideOutStart_data = 2012-06-05 03:00:00
+LandslideOutEnd_data = 2012-06-05 14:00:00
+#####################       soil downscaling data          ##################
+#############################################################
+DownscalingBasicFormat     =  tif
+DownscalingBasicPath     =  "./DownscalingBasicData/"
+##########################################################################
+##########################################################################
+#Information for selected gauge sites
+##########################################################################
+NOutPixs         =  1
+OutPixName1      =  03501000
+OutPixLat1       =  32.7327747
+OutPixLon1       =  108.7737
+OutPixArea1      =  1200 #1129.2
+##########################################################################
+#
+#
+#
+##########################################################################
+#Grid Outputs
+##########################################################################
+GOVar_Rain       =  no
+GOVar_EPot       =  no
+GOVar_EAct       =  no
+GOVar_W          =  yes
+GOVar_SM         =  yes
+GOVar_R          =  no
+GOVar_RS         =  no
+GOVar_RI         =  no
+GOVar_Infil      =  yes
+GOVar_FS         =  no
+GOVar_tot_infil  =  yes
+GOVar_FS3D  =  yes
+GOVar_PF  =  yes
+GOVar_Volume  =  yes
+GOVar_Area  =  yes
+##########################################################################
+
