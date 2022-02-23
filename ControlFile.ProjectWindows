@@ -31,7 +31,7 @@ TimeStep       =    3600 # in seconds
 # HydroSlide
 # iHydroSlide3D
 ##########################################################################
-ModelCore	=	iHydroSlide3D
+ModelCore	=	Hydromodel 
 ##########################################################################
 #
 #
@@ -120,8 +120,8 @@ coeM           =  130 #24.230076
 LandslideBasicFormat      =  tif
 LandslideBasicPath        =  ".\LandslideBasics\"
 UseMaxLocalNcores = no
-UserDefinedNcores = 4
-Landslide_density = 0.5
+UserDefinedNcores = 2
+Landslide_density = 10
 Divide_tile_number = 100
 min_ae = 50
 max_ae = 200
@@ -138,7 +138,7 @@ DownscalingBasicPath     =  ".\DownscalingBasicData\"
 #Information for selected gauge sites
 ##########################################################################
 NOutPixs         =  1
-OutPixName1      =  03501000
+OutPixName1      =  Yuehe
 OutPixLat1       =  32.7327747
 OutPixLon1       =  108.7737
 OutPixArea1      =  1200 #1129.2
@@ -152,17 +152,17 @@ OutPixArea1      =  1200 #1129.2
 GOVar_Rain       =  no
 GOVar_EPot       =  no
 GOVar_EAct       =  no
-GOVar_W          =  yes
-GOVar_SM         =  yes
+GOVar_W          =  no
+GOVar_SM         =  no
 GOVar_R          =  no
 GOVar_RS         =  no
 GOVar_RI         =  no
-GOVar_Infil      =  yes
+GOVar_Infil      =  no
 GOVar_FS         =  no
-GOVar_tot_infil  =  yes
-GOVar_FS3D  =  yes
-GOVar_PF  =  yes
-GOVar_Volume  =  yes
-GOVar_Area  =  yes
+GOVar_tot_infil  =  no
+GOVar_FS3D  =  no
+GOVar_PF  =  no
+GOVar_Volume  =  no
+GOVar_Area  =  no
 ##########################################################################
 

@@ -264,6 +264,29 @@ end
 
 
 switch lower(rundata.modelCore)
+    case 'hydromodel'
+        switch lower(rundata.Hydro_basicFormat)
+            case {'txt','asc'}
+                [cpar_Z,~] = read_ascii_gis(rundata.soil_path); 
+            case 'tif'
+                [cpar_Z,~] = geotiffread(rundata.soil_path);
+        end 
+        
+        cpar_Z = double(cpar_Z); cpar_Z(cpar_Z<0) = 0;
+
+        outpar.soil=cpar_Z+mk_Z;
+
+        switch lower(rundata.Hydro_basicFormat)
+            case {'txt','asc'}
+                [cpar_Z,~] = read_ascii_gis(rundata.landcover_path); 
+            case 'tif'
+                [cpar_Z,~] = geotiffread(rundata.landcover_path);
+        end 
+        cpar_Z = double(cpar_Z); cpar_Z(cpar_Z<0) = 0;
+        outpar.landcover=cpar_Z+mk_Z;
+    
+    
+    
     case 'hydroslide'
         switch lower(rundata.Hydro_basicFormat)
             case {'txt','asc'}
@@ -284,6 +307,8 @@ switch lower(rundata.modelCore)
         end 
         cpar_Z = double(cpar_Z); cpar_Z(cpar_Z<0) = 0;
         outpar.landcover=cpar_Z+mk_Z;
+        
+        
     case 'ihydroslide3d'
     switch lower(rundata.Hydro_basicFormat)
         case {'txt','asc'}

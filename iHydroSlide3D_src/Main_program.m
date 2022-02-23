@@ -383,7 +383,7 @@ function [prediction] = Main_program(globalCtlFile)
     end
     
     
-
+    
     
     if ~exist(rundata.mask_path,'file')
         error(['The mask file you provided is not in the format of geotiff!' ...
@@ -443,7 +443,7 @@ function [prediction] = Main_program(globalCtlFile)
 
     rundata.subfolder_search = 'No';
 
-
+    
     rundata.tstep = rundata.pp_tstep; %Time Step in hours
     
     
@@ -740,8 +740,14 @@ function [prediction] = Main_program(globalCtlFile)
     % rundata.load_basicgrids = 'saved_basicgrids.mat';
     % rundata.save_basicgrids = 'saved_basicgrids.mat';
     %[prediction] = HPROLite(rundata);
-    Ncores = rundata.Ncores;
-    Parallel_environment = parpool(Ncores);
+    Parallel_judge = strcmpi(rundata.modelCore,"ihydroslide3d");
+    if Parallel_judge
+        Ncores = rundata.Ncores;
+        Parallel_environment = parpool(Ncores);
+    end
+    
+    
+    
     [prediction] = Code_execute(rundata);
 
 %    %Save results
@@ -772,7 +778,7 @@ tperiod = rundata.tperiod; %time period for simulation
 cstep=1;
 for step = tperiod(1):(tstep/24):tperiod(end)
     switch lower(rundata.modelCore)
-        case 'crest'
+        case 'hydromodel'
             if cstep==1
                 fprintf(fid,'DateTime,Rain,EPot,EAct,W,SM,Infil,R\n');
             end
@@ -781,7 +787,7 @@ for step = tperiod(1):(tstep/24):tperiod(end)
                 prediction.EPot(1,cstep),prediction.EAct(1,cstep), ...
                 prediction.W(1,cstep),prediction.SM(1,cstep), ...
                 prediction.Infil(1,cstep),prediction.R(1,cstep));
-        case 'creslide'
+        case 'hydroslide'
             if cstep==1
                 fprintf(fid,'DateTime,Rain,EPot,EAct,W,SM,Infil,FS,R, tot_infil\n');
             end
@@ -790,7 +796,7 @@ for step = tperiod(1):(tstep/24):tperiod(end)
                 prediction.EPot(1,cstep),prediction.EAct(1,cstep), ...
                 prediction.W(1,cstep),prediction.SM(1,cstep), prediction.Infil(1,cstep),...
                 prediction.FS(1,cstep),prediction.R(1,cstep), prediction.Tot_infil(1,cstep));
-        case 'crestable3d'
+        case 'ihydroslide3d'
             if cstep==1
                 fprintf(fid,'DateTime,Rain,EPot,EAct,W,SM,Infil,R, tot_infil\n');
             end
@@ -865,7 +871,7 @@ for id=1:size(prediction.Rain,1)-1
     cstep=1;
     for step = tperiod(1):(tstep/24):tperiod(end)
         switch lower(rundata.modelCore)
-            case 'crest'
+            case 'hydromodel'
                 if cstep==1
                     fprintf(fid,'DateTime,Rain,EPot,EAct,W,SM,Infil,R,RObs\n');
                 end
@@ -875,7 +881,7 @@ for id=1:size(prediction.Rain,1)-1
                     prediction.W(id+1,cstep),prediction.SM(id+1,cstep), prediction.Infil(id+1,cstep),...
                     prediction.R(id+1,cstep),tmp(cstep));
                 cstep=cstep+1;
-            case 'creslide'
+            case 'hydroslide'
                 if cstep==1
                     fprintf(fid,'DateTime,Rain,EPot,EAct,W,SM,Infil,FS,R,RObs, tot_infil\n');
                 end
@@ -885,7 +891,7 @@ for id=1:size(prediction.Rain,1)-1
                     prediction.W(id+1,cstep),prediction.SM(id+1,cstep),prediction.Infil(id+1,cstep), ...
                     prediction.FS(id+1,cstep),prediction.R(id+1,cstep),tmp(cstep), prediction.Tot_infil(id+1,cstep));
                 cstep=cstep+1;
-           case 'crestable3d'
+           case 'ihydroslide3d'
                 if cstep==1
                     fprintf(fid,'DateTime,Rain,EPot,EAct,W,SM,Infil,R,RObs, tot_infil\n');
                 end
@@ -933,6 +939,9 @@ end
     % %    fprintf(fid,'%s, %8.2f\n',datestr(rundata.tperiod(i),'yyyy-mm-dd HH:MM:SS'), prediction.Q(2,i)); 
     % % end
     % % fclose(fid);
-    delete(Parallel_environment)
+    if Parallel_judge
+        delete(Parallel_environment)
+    end
+    
     disp('------ model execution ends ------')
 end
