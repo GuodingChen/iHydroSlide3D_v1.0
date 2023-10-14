@@ -1,3 +1,7 @@
+### **Important: This Version Is No Longer Supported**
+
+We've migrated the model to a new version, which is now actively updated and maintained. For the latest features and improvements, please check out the [new version here](https://github.com/GuodingChen/PHyL_v1.0). Thank you for your support!
+
 ### iHydroSlide3D v1.0
 ### ![](https://img.shields.io/badge/version-v1.0-blue)		![APM](https://img.shields.io/apm/l/vim-mode)		![](https://img.shields.io/badge/computing%20core-%3E%3D2-green) 
 
